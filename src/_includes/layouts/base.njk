@@ -8,7 +8,7 @@
     <title>{{title or metadata.title}}</title>
     {% if build.env == "production" %}
         {# Add any CSS from the main script #}
-        {% viteLinkStylesheetTags "src/client/main.tsx" %}
+        {% viteLinkStylesheetTags "src/client/main.ts" %}
     {% endif %}
 </head>
 <body>
@@ -34,22 +34,13 @@
     #}
     {% if build.env == "production" %}
         {# We must read the production scripts from the Vite manifest. We defer that logic to a custom shortcode #}
-        {% viteScriptTag "src/client/main.tsx" %}
+        {% viteScriptTag "src/client/main.ts" %}
     {% else %}
-        {# Set up @vitejs/plugin-react-refresh preamble #}
-        <script type="module">
-            import RefreshRuntime from "http://localhost:3000/@react-refresh"
-            RefreshRuntime.injectIntoGlobalHook(window) 
-            window.$RefreshReg$ = () => {}
-            window.$RefreshSig$ = () => (type) => type
-            window.__vite_plugin_react_preamble_installed__ = true
-        </script>
-
         {# The vite development client #}
         <script type="module" src="http://localhost:3000/@vite/client"></script>
 
         {# The main script entry for development (pointing to vite) #}
-        <script type="module" src="http://localhost:3000/src/client/main.tsx"></script>
+        <script type="module" src="http://localhost:3000/src/client/main.ts"></script>
     {% endif %}
 </body>
 </html>
