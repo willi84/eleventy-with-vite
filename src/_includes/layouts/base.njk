@@ -35,8 +35,6 @@
     {% if build.env == "production" %}
         {# We must read the production scripts from the Vite manifest. We defer that logic to a custom shortcode #}
         {% viteScriptTag "src/client/main.tsx" %}
-        {% viteLegacyScriptTag "vite/legacy-polyfills" %}
-        {% viteLegacyScriptTag "src/client/main-legacy.tsx" %}
     {% else %}
         {# Set up @vitejs/plugin-react-refresh preamble #}
         <script type="module">

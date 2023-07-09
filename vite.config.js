@@ -1,5 +1,4 @@
 import { defineConfig } from "vite";
-import legacy from "@vitejs/plugin-legacy";
 import reactRefresh from "@vitejs/plugin-react-refresh";
 
 // https://vitejs.dev/config/
@@ -7,7 +6,7 @@ export default defineConfig({
   // This is not critical, but I include it because there are more HTML transforms via plugins, that templates must handle
   // TODO: For legacy() to work without a hitch, we set a known @babel/standalone version in package.json
   // Remove that once https://github.com/vitejs/vite/issues/2442 is fixed
-  plugins: [legacy(), reactRefresh()],
+  plugins: [reactRefresh()],
   build: {
     // This is important: Generate directly to _site and then assetsDir.
     // You could opt to build in an intermediate directory,

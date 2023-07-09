@@ -1,5 +1,4 @@
 import React, { StrictMode } from "react";
-
 function App() {
   return (
     <StrictMode>
