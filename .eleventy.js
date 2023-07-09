@@ -1,18 +1,22 @@
 const fs = require("fs/promises");
 const path = require("path");
 const markdownIt = require("markdown-it");
+const config = require("./project.config.js")
 
-const INPUT_DIR = "src";
-const OUTPUT_DIR = "_site";
 
 // This will change both Eleventy's pathPrefix, and the one output by the
 // vite-related shortcodes below. Double-check if you change this, as this is only a demo :)
-const PATH_PREFIX = '/';
+const PATH_PREFIX = config.PATH_PREFIX;
+const TEMPLATE_ENGINE = config.TEMPLATE_ENGINE;
 
 module.exports = function (eleventyConfig) {
   // Disable whitespace-as-code-indicator, which breaks a lot of markup
   const configuredMdLibrary = markdownIt({ html: true }).disable("code");
   eleventyConfig.setLibrary("md", configuredMdLibrary);
+
+  // ignores
+  eleventyConfig.ignores.add(`${config.CLIENT_DIR}/*.js`);
+  eleventyConfig.ignores.add(`${config.CLIENT_DIR}/*.css`);
 
   // Read Vite's manifest.json, and add script tags for the entry files
   // You could decide to do more things here, such as adding preload/prefetch tags
@@ -64,7 +68,7 @@ module.exports = function (eleventyConfig) {
 
     // TODO: Consider caching this call, to avoid going to the filesystem every time
     const manifest = await fs.readFile(
-      path.resolve(process.cwd(), "_site", "manifest.json")
+      path.resolve(process.cwd(), config.DIST_DIR, config.MANIFEST)
     );
     const parsed = JSON.parse(manifest);
 
@@ -76,7 +80,7 @@ module.exports = function (eleventyConfig) {
         .map((chunk) => `"${chunk.src}"`)
         .join(`, `);
       throw new Error(
-        `No entry for ${entryFilename} found in _site/manifest.json. Valid entries in manifest: ${possibleEntries}`
+        `No entry for ${entryFilename} found in ${config.DIST_DIR}/${config.MANIFEST}. Valid entries in manifest: ${possibleEntries}`
       );
     }
 
@@ -84,19 +88,19 @@ module.exports = function (eleventyConfig) {
   }
 
   return {
-    templateFormats: ["md", "njk", "html"],
+    templateFormats: ["md", TEMPLATE_ENGINE, "html"],
     pathPrefix: PATH_PREFIX,
-    markdownTemplateEngine: "njk",
-    htmlTemplateEngine: "njk",
-    dataTemplateEngine: "njk",
+    markdownTemplateEngine: TEMPLATE_ENGINE,
+    htmlTemplateEngine: TEMPLATE_ENGINE,
+    dataTemplateEngine: TEMPLATE_ENGINE,
     passthroughFileCopy: true,
     dir: {
-      input: INPUT_DIR,
-      output: OUTPUT_DIR,
+      input: config.INPUT_DIR,
+      output: config.OUTPUT_DIR,
       // NOTE: These two paths are relative to dir.input
       // @see https://github.com/11ty/eleventy/issues/232
-      includes: "_includes",
-      data: "_data",
+      includes: config.INCLUDES,
+      data: config.DATA_DIR,
     },
   };
 };

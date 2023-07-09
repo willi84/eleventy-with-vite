@@ -27,6 +27,7 @@
   "scripts": {
     "dev": "concurrently --raw npm:dev:*",
     "dev:tsc:watch": "tsc --watch --preserveWatchOutput",
+    "dev_debug": "DEBUG=Eleventy* eleventy",
     "dev:eleventy": "eleventy --serve",
     "dev:vite": "vite",
     "build": "npm run build:tsc && npm run build:vite && npm run build:eleventy",
