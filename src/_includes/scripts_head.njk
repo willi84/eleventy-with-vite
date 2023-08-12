@@ -1,0 +1,4 @@
+{% if build.env == "production" %}
+    {# Add any CSS from the main script #}
+    {% viteLinkStylesheetTags config.ENTRY_FILE %}
+{% endif %}

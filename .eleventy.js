@@ -9,10 +9,14 @@ const config = require("./project.config.js")
 const PATH_PREFIX = config.PATH_PREFIX;
 const TEMPLATE_ENGINE = config.TEMPLATE_ENGINE;
 
+console.log(config)
+
 module.exports = function (eleventyConfig) {
   // Disable whitespace-as-code-indicator, which breaks a lot of markup
   const configuredMdLibrary = markdownIt({ html: true }).disable("code");
   eleventyConfig.setLibrary("md", configuredMdLibrary);
+
+  eleventyConfig.addNunjucksGlobal('config', config);
 
   // ignores
   eleventyConfig.ignores.add(`${config.CLIENT_DIR}/*.js`);

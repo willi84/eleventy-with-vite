@@ -1,0 +1,20 @@
+{#
+    We must split development  and production scripts
+    In development, vite runs a server to resolve and reload scripts
+    In production, the scripts are statically replaced at build-time
+
+    The build.env variable is assigned in src/_data/build.js
+    @see https://vitejs.dev/guide/backend-integration.html#backend-integration
+    @see https://www.11ty.dev/docs/data-js/#example-exposing-environment-variables
+#}
+
+{% if build.env == "production" %}
+    {# We must read the production scripts from the Vite manifest. We defer that logic to a custom shortcode #}
+    {% viteScriptTag config.ENTRY_FILE %}
+{% else %}
+    {# The vite development client #}
+    <script type="module" src="{{config.HOST_VITE}}/@vite/client"></script>
+
+    {# The main script entry for development (pointing to vite) #}
+    <script type="module" src="{{config.HOST_VITE}}/{{config.ENTRY_FILE}}"></script>
+{% endif %}
