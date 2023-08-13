@@ -7,7 +7,6 @@
     @see https://vitejs.dev/guide/backend-integration.html#backend-integration
     @see https://www.11ty.dev/docs/data-js/#example-exposing-environment-variables
 #}
-
 {% if build.env == "production" %}
     {# We must read the production scripts from the Vite manifest. We defer that logic to a custom shortcode #}
     {% viteScriptTag config.ENTRY_FILE %}

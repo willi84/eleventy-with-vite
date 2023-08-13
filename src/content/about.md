@@ -3,7 +3,7 @@ layout: layouts/base.njk
 title: About | Eleventy with Vite
 ---
 
-# About
+# About ME
 
 This is a template (or demo) for integrating [Vite](https://vitejs.dev) with Eleventy. This allows you to use Vite for its very fast bundling of JS and assets for client-side scripts, while building the static pages (and anything related) with Eleventy.
 

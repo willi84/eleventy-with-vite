@@ -9,8 +9,6 @@ const config = require("./project.config.js")
 const PATH_PREFIX = config.PATH_PREFIX;
 const TEMPLATE_ENGINE = config.TEMPLATE_ENGINE;
 
-console.log(config)
-
 module.exports = function (eleventyConfig) {
   // Disable whitespace-as-code-indicator, which breaks a lot of markup
   const configuredMdLibrary = markdownIt({ html: true }).disable("code");
@@ -99,10 +97,11 @@ module.exports = function (eleventyConfig) {
     dataTemplateEngine: TEMPLATE_ENGINE,
     passthroughFileCopy: true,
     dir: {
-      input: config.INPUT_DIR,
+      input: config.INPUT_CONTENT,
       output: config.OUTPUT_DIR,
-      // NOTE: These two paths are relative to dir.input
+      // NOTE: paths are relative to dir.input
       // @see https://github.com/11ty/eleventy/issues/232
+      layouts: config.LAYOUTS,
       includes: config.INCLUDES,
       data: config.DATA_DIR,
     },
