@@ -1,5 +1,6 @@
-import { defineConfig } from "vite";
-const config = require("./project.config.js");
+import { defineConfig } from 'vite';
+// const config = require("./project.config.js");
+import  config from './project.config.js';
 
 // https://vitejs.dev/config/
 export default defineConfig({

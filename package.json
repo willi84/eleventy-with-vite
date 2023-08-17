@@ -19,8 +19,14 @@
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
     "@babel/standalone": "7.13.14",
+    "@types/jest": "^29.5.3",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.5.0",
     "concurrently": "^6.0.0",
+    "jest": "^29.6.2",
+    "jest-environment-jsdom": "^29.6.2",
     "static-server": "^2.2.1",
+    "ts-jest": "^29.1.1",
     "typescript": "^4.2.3",
     "vite": "^2.1.4"
   },
@@ -34,6 +40,10 @@
     "build:tsc": "tsc",
     "build:eleventy": "eleventy",
     "build:vite": "vite build",
-    "prod": "NODE_ENV=production npm run build && static-server _site"
+    "prod": "NODE_ENV=production npm run build && static-server _site",
+    "test": "jest --env=jsdom --coverage --runInBand",
+    "test:watch": "jest --env=jsdom --watchAll  --coverage",
+    "test:watch:strict": "jest --env=jsdom --watchAll  --coverage --runInBand --unhandled-rejections=strict",
+    "test: clear": "jest --clearCache"
   }
 }
